@@ -320,7 +320,7 @@ target_include_directories(sdl-build-options BEFORE INTERFACE "${SDL2_BINARY_DIR
 # Note: The clang toolset for Visual Studio does not support the '-idirafter' option.
 if(USE_GCC OR (USE_CLANG AND NOT MSVC_CLANG))
   # !!! FIXME: do we _need_ to mess with CMAKE_C_FLAGS here?
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -idirafter \"${SDL2_SOURCE_DIR}/src/video/khronos\"")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Werror -idirafter \"${SDL2_SOURCE_DIR}/src/video/khronos\"")
 else()
   target_include_directories(sdl-build-options INTERFACE "${SDL2_SOURCE_DIR}/src/video/khronos")
 endif()
