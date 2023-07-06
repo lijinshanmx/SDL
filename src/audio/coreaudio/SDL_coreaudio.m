@@ -380,6 +380,7 @@ static BOOL update_audio_session(_THIS, SDL_bool open, SDL_bool allow_playandrec
         NSUInteger options = AVAudioSessionCategoryOptionMixWithOthers;
         NSError *err = nil;
         const char *hint;
+        NSString *desc;
 
         hint = SDL_GetHint(SDL_HINT_AUDIO_CATEGORY);
         if (hint) {
@@ -433,7 +434,7 @@ static BOOL update_audio_session(_THIS, SDL_bool open, SDL_bool allow_playandrec
                 session_active = NO;
 
                 if (![session setCategory:category mode:mode options:options error:&err]) {
-                    NSString *desc = err.description;
+                    desc = err.description;
                     SDL_SetError("Could not set Audio Session category: %s", desc.UTF8String);
                     return NO;
                 }
@@ -446,7 +447,7 @@ static BOOL update_audio_session(_THIS, SDL_bool open, SDL_bool allow_playandrec
                 session_active = NO;
 
                 if (![session setCategory:category error:&err]) {
-                    NSString *desc = err.description;
+                    desc = err.description;
                     SDL_SetError("Could not set Audio Session category: %s", desc.UTF8String);
                     return NO;
                 }
@@ -460,7 +461,7 @@ static BOOL update_audio_session(_THIS, SDL_bool open, SDL_bool allow_playandrec
                     return update_audio_session(this, open, SDL_FALSE);
                 }
 
-                NSString *desc = err.description;
+                desc = err.description;
                 SDL_SetError("Could not activate Audio Session: %s", desc.UTF8String);
                 return NO;
             }
